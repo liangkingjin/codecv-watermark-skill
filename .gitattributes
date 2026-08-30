@@ -7,3 +7,10 @@
 *.py text eol=lf
 *.md text eol=lf
 * text=auto
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary

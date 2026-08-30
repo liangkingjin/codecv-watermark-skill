@@ -6,12 +6,22 @@
 
 ## 效果
 
-| | |
-|---|---|
-| 输入 | CodeCV 导出的带水印简历 PDF |
-| 输出 | 无水印 PDF，页数 / 尺寸 / 可选中文本不变 |
-| 处理耗时 | 秒级，纯本地运行，无需联网 |
+下图是用本工具处理同一份 CodeCV 简历 PDF 的对比（点击可放大查看）：
 
+| 处理前（带水印） | 处理后（无水印） |
+|---|---|
+| ![带水印](assets/sample-before.png) | ![无水印](assets/sample-after.png) |
+
+- 水印为整页斜向平铺的 **「CodeCV简历」** 字样
+- 处理后水印完全移除，正文、排版、页边距、可抽取文本均保持不变
+- 文件不转图片、不涂白，大小通常还会略小一点（删掉了水印资源）
+
+运行示例：
+
+```text
+Removed 1 CodeCV watermark pattern fill(s).
+Wrote: sample.clean.pdf
+```
 ## 一键安装（推荐）
 
 在任意终端执行一条命令即可（需要已安装 Node.js）：
@@ -130,9 +140,12 @@ codecv-watermark-skill/
 ├── README.md
 ├── LICENSE
 ├── package.json                                # npm 包定义（npx 入口）
-├── bin/cli.js                                  # npx 安装器（自动检测工具并复制）
+├── bin/cli.js                                  # npx 安装器
 ├── install.sh                                  # 备选安装（macOS / Linux）
 ├── install.ps1                                 # 备选安装（Windows）
+├── assets/
+│   ├── sample-before.png                       # README 效果对比：带水印
+│   └── sample-after.png                        # README 效果对比：无水印
 ├── skill/
 │   └── remove-codecv-watermark/
 │       ├── SKILL.md                           # Skill 定义与触发条件
