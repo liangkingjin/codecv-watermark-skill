@@ -1,0 +1,31 @@
+{
+  "name": "remove-codecv-watermark",
+  "version": "1.0.0",
+  "description": "去除 CodeCV（codecv.top）导出简历 PDF 平铺图案水印的 Skill，一键安装到 WorkBuddy / Claude Code / CodeBuddy / Cursor",
+  "bin": {
+    "remove-codecv-watermark": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "codecv",
+    "watermark",
+    "resume",
+    "pdf",
+    "skill",
+    "ai-coding",
+    "workbuddy",
+    "claude-code",
+    "codebuddy",
+    "cursor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangkingjin/codecv-watermark-skill.git"
+  },
+  "license": "MIT"
+}

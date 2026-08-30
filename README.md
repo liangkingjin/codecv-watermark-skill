@@ -14,19 +14,15 @@
 
 ## 一键安装（推荐）
 
-### macOS / Linux
+在任意终端执行一条命令即可（需要已安装 Node.js）：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.sh | bash
+npx github:liangkingjin/codecv-watermark-skill
 ```
 
-### Windows（PowerShell）
+> 无需发布到 npm 注册表，npx 直接从 GitHub 仓库拉取并运行安装器。若日后发布到 npm，则可以直接 `npx remove-codecv-watermark`。
 
-```powershell
-irm https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.ps1 | iex
-```
-
-安装脚本会自动检测本机已安装的 AI 编程工具，并把 skill 复制到对应的技能目录：
+安装器会自动检测本机已安装的 AI 编程工具，把 skill 复制到对应的技能目录；一台机器上装了几个工具就装几份：
 
 | 工具 | 安装位置 |
 |---|---|
@@ -38,14 +34,28 @@ irm https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/i
 常用参数：
 
 ```bash
-# 安装到所有支持的工具（而不只是已安装的）
-bash install.sh --all
+# 安装到所有支持的工具（而不只是已检测到的）
+npx github:liangkingjin/codecv-watermark-skill --all
 
 # 安装到自定义目录
-bash install.sh --dir /path/to/skills
+npx github:liangkingjin/codecv-watermark-skill --dir /path/to/skills
 
-# 覆盖已有安装
-bash install.sh --force
+# 覆盖已有安装（升级时用）
+npx github:liangkingjin/codecv-watermark-skill --force
+```
+
+### 备选：脚本安装（无 Node.js 环境时）
+
+macOS / Linux：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.sh | bash
+```
+
+Windows（PowerShell）：
+
+```powershell
+irm https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.ps1 | iex
 ```
 
 ## 使用方法
@@ -102,8 +112,10 @@ x y w h re  f                                  # 矩形路径 + 填充，覆盖�
 codecv-watermark-skill/
 ├── README.md
 ├── LICENSE
-├── install.sh                                 # 一键安装（macOS / Linux）
-├── install.ps1                                # 一键安装（Windows）
+├── package.json                                # npm 包定义（npx 入口）
+├── bin/cli.js                                  # npx 安装器（自动检测工具并复制）
+├── install.sh                                  # 备选安装（macOS / Linux）
+├── install.ps1                                 # 备选安装（Windows）
 ├── skill/
 │   └── remove-codecv-watermark/
 │       ├── SKILL.md                           # Skill 定义与触发条件
