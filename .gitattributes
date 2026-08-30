@@ -1,0 +1,9 @@
+# Shell scripts must keep LF endings (curl | bash breaks on CRLF)
+*.sh text eol=lf
+
+# PowerShell scripts are fine with CRLF on Windows
+*.ps1 text eol=crlf
+
+*.py text eol=lf
+*.md text eol=lf
+* text=auto
