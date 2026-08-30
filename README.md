@@ -26,10 +26,27 @@ npx github:liangkingjin/codecv-watermark-skill
 
 | 工具 | 安装位置 |
 |---|---|
-| WorkBuddy | `~/.workbuddy/skills/remove-codecv-watermark/` |
-| Claude Code | `~/.claude/skills/remove-codecv-watermark/` |
-| CodeBuddy Code | `~/.codebuddy/skills/remove-codecv-watermark/` |
-| Cursor | `~/.cursor/skills/remove-codecv-watermark/` |
+| WorkBuddy | `~/.workbuddy/skills/` |
+| Claude Code | `~/.claude/skills/` |
+| CodeBuddy Code | `~/.codebuddy/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| OpenCode | `~/.config/opencode/skills/` |
+| Codex CLI | `~/.codex/skills/` |
+| Gemini CLI | `~/.gemini/skills/` |
+| Windsurf | `~/.codeium/windsurf/skills/` |
+| Trae | `~/.trae/skills/` |
+| GitHub Copilot | `~/.copilot/skills/` |
+| Augment | `~/.augment/skills/` |
+| Antigravity | `~/.gemini/antigravity/skills/` |
+| Cline | `~/.cline/skills/` |
+| Roo Code | `~/.roo/skills/` |
+| Kilo Code | `~/.kilocode/skills/` |
+| Continue | `~/.continue/skills/` |
+| Qoder | `~/.qoder/skills/` |
+| Qwen Code | `~/.qwen/skills/` |
+| Universal（.agents 通用规范） | `~/.agents/skills/` |
+
+共 19 个工具目录。所有工具均采用 SKILL.md 通用格式（agentskills.io 规范），同一份 skill 无需修改即可被以上工具发现。
 
 常用参数：
 

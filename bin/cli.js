@@ -19,11 +19,28 @@ const SKILL_NAME = 'remove-codecv-watermark';
 const home = os.homedir();
 
 // Skill directories of supported AI coding tools.
+// Sources: each tool's official docs / agentskills.io ecosystem analysis.
 const CANDIDATES = [
-  path.join(home, '.workbuddy', 'skills'),
-  path.join(home, '.claude', 'skills'),
-  path.join(home, '.codebuddy', 'skills'),
-  path.join(home, '.cursor', 'skills'),
+  { name: 'WorkBuddy',     dir: path.join(home, '.workbuddy', 'skills') },
+  { name: 'Claude Code',   dir: path.join(home, '.claude', 'skills') },
+  { name: 'CodeBuddy Code',dir: path.join(home, '.codebuddy', 'skills') },
+  { name: 'Cursor',        dir: path.join(home, '.cursor', 'skills') },
+  { name: 'OpenCode',      dir: path.join(home, '.config', 'opencode', 'skills') },
+  { name: 'Codex CLI',     dir: path.join(home, '.codex', 'skills') },
+  { name: 'Gemini CLI',    dir: path.join(home, '.gemini', 'skills') },
+  { name: 'Windsurf',      dir: path.join(home, '.codeium', 'windsurf', 'skills') },
+  { name: 'Trae',          dir: path.join(home, '.trae', 'skills') },
+  { name: 'GitHub Copilot',dir: path.join(home, '.copilot', 'skills') },
+  { name: 'Augment',       dir: path.join(home, '.augment', 'skills') },
+  { name: 'Antigravity',   dir: path.join(home, '.gemini', 'antigravity', 'skills') },
+  { name: 'Cline',         dir: path.join(home, '.cline', 'skills') },
+  { name: 'Roo Code',      dir: path.join(home, '.roo', 'skills') },
+  { name: 'Kilo Code',     dir: path.join(home, '.kilocode', 'skills') },
+  { name: 'Continue',      dir: path.join(home, '.continue', 'skills') },
+  { name: 'Qoder',         dir: path.join(home, '.qoder', 'skills') },
+  { name: 'Qwen Code',     dir: path.join(home, '.qwen', 'skills') },
+  // Universal agents (agentskills.io spec): one dir shared by many tools
+  { name: 'Universal (.agents)', dir: path.join(home, '.agents', 'skills') },
 ];
 
 function usage() {
@@ -87,14 +104,14 @@ function main() {
   if (opts.all) {
     targets = CANDIDATES.slice();
   } else {
-    targets = CANDIDATES.filter((d) => fs.existsSync(d));
+    targets = CANDIDATES.filter((c) => fs.existsSync(c.dir));
     if (targets.length === 0) targets = [CANDIDATES[0]];
   }
-  targets = targets.concat(opts.dirs);
+  targets = targets.concat(opts.dirs.map((d) => ({ name: 'custom', dir: d })));
 
   const installed = [];
-  for (const dir of targets) {
-    const dest = path.join(dir, SKILL_NAME);
+  for (const t of targets) {
+    const dest = path.join(t.dir, SKILL_NAME);
     if (fs.existsSync(dest) && !opts.force) {
       console.log(`==> Skipped (already exists): ${dest}  (use --force to overwrite)`);
       continue;
@@ -106,13 +123,13 @@ function main() {
       // overwrite files in place via copyFileSync below.
     }
     copyDir(src, dest);
-    console.log(`==> Installed: ${dest}`);
+    console.log(`==> Installed [${t.name}]: ${dest}`);
     installed.push(dest);
   }
 
-  const first = installed[0] || path.join(CANDIDATES[0], SKILL_NAME);
+  const first = installed[0] || path.join(CANDIDATES[0].dir, SKILL_NAME);
   console.log(`
-Done.
+Done. Installed into ${installed.length} tool(s).
 
 Next steps:
   1. Install the Python dependency:

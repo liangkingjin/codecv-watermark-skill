@@ -10,12 +10,28 @@ REPO="liangkingjin/codecv-watermark-skill"
 BRANCH="main"
 SKILL_NAME="remove-codecv-watermark"
 
-# Candidate skill directories for AI coding tools.
+# Candidate skill directories for AI coding tools (name:dir pairs).
+# Sources: each tool's official docs / agentskills.io ecosystem analysis.
 CANDIDATES=(
-  "$HOME/.workbuddy/skills"
-  "$HOME/.claude/skills"
-  "$HOME/.codebuddy/skills"
-  "$HOME/.cursor/skills"
+  "WorkBuddy:$HOME/.workbuddy/skills"
+  "Claude Code:$HOME/.claude/skills"
+  "CodeBuddy Code:$HOME/.codebuddy/skills"
+  "Cursor:$HOME/.cursor/skills"
+  "OpenCode:$HOME/.config/opencode/skills"
+  "Codex CLI:$HOME/.codex/skills"
+  "Gemini CLI:$HOME/.gemini/skills"
+  "Windsurf:$HOME/.codeium/windsurf/skills"
+  "Trae:$HOME/.trae/skills"
+  "GitHub Copilot:$HOME/.copilot/skills"
+  "Augment:$HOME/.augment/skills"
+  "Antigravity:$HOME/.gemini/antigravity/skills"
+  "Cline:$HOME/.cline/skills"
+  "Roo Code:$HOME/.roo/skills"
+  "Kilo Code:$HOME/.kilocode/skills"
+  "Continue:$HOME/.continue/skills"
+  "Qoder:$HOME/.qoder/skills"
+  "Qwen Code:$HOME/.qwen/skills"
+  "Universal (.agents):$HOME/.agents/skills"
 )
 
 MODE="auto"        # auto | all
@@ -72,18 +88,22 @@ TARGETS=()
 if [ "$MODE" = "all" ]; then
   TARGETS=("${CANDIDATES[@]}")
 else
-  for d in "${CANDIDATES[@]}"; do
-    [ -d "$d" ] && TARGETS+=("$d")
+  for entry in "${CANDIDATES[@]}"; do
+    d="${entry#*:}"
+    [ -d "$d" ] && TARGETS+=("$entry")
   done
   if [ ${#TARGETS[@]} -eq 0 ]; then
-    TARGETS+=("$HOME/.workbuddy/skills")
+    TARGETS+=("WorkBuddy:$HOME/.workbuddy/skills")
   fi
 fi
 for d in "${CUSTOM_DIRS[@]:-}"; do
-  [ -n "$d" ] && TARGETS+=("$d")
+  [ -n "$d" ] && TARGETS+=("custom:$d")
 done
 
-for dir in "${TARGETS[@]}"; do
+INSTALLED_COUNT=0
+for entry in "${TARGETS[@]}"; do
+  name="${entry%%:*}"
+  dir="${entry#*:}"
   dest="$dir/$SKILL_NAME"
   if [ -d "$dest" ] && [ "$FORCE" -eq 0 ]; then
     echo "==> Skipped (already exists): $dest  (use --force to overwrite)"
@@ -92,15 +112,17 @@ for dir in "${TARGETS[@]}"; do
   mkdir -p "$dir"
   rm -rf "$dest"
   cp -R "$SRC" "$dest"
-  echo "==> Installed: $dest"
+  echo "==> Installed [$name]: $dest"
+  INSTALLED_COUNT=$((INSTALLED_COUNT + 1))
 done
 
+FIRST_DIR="${TARGETS[0]#*:}"
 cat <<EOF
 
-Done.
+Done. Installed into $INSTALLED_COUNT tool(s).
 
 Next steps:
-  1. Install the Python dependency:  pip install -r ${TARGETS[0]}/$SKILL_NAME/scripts/requirements.txt
+  1. Install the Python dependency:  pip install -r ${FIRST_DIR}/$SKILL_NAME/scripts/requirements.txt
   2. In your AI coding tool, say:
      "帮我去掉这份 CodeCV 简历的水印 @简历.pdf"
 
