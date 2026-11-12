@@ -22,68 +22,35 @@
 Removed 1 CodeCV watermark pattern fill(s).
 Wrote: sample.clean.pdf
 ```
-## 一键安装（推荐）
+## 安装
 
-在任意终端执行一条命令即可（需要已安装 Node.js）：
+**最简单的方式：直接把这个 GitHub 地址发给你的 AI 编程工具**（WorkBuddy / Claude Code / Cursor / OpenCode 等），说一句：
+
+> 帮我安装这个 skill：https://github.com/liangkingjin/codecv-watermark-skill
+
+Agent 会自动拉取仓库、把 skill 装到对应的技能目录并装好依赖。
+
+所有支持 SKILL.md 通用格式（agentskills.io 规范）的工具均可使用，包括：WorkBuddy、Claude Code、CodeBuddy Code、Cursor、OpenCode、Codex CLI、Gemini CLI、Windsurf、Trae、GitHub Copilot、Augment、Cline、Roo Code、Kilo Code、Continue、Qoder、Qwen Code 等。
+
+### 备选方式
+
+喜欢命令行的话也可以一条命令装完（需要 Node.js，会自动检测已装的 AI 工具）：
 
 ```bash
 npx github:liangkingjin/codecv-watermark-skill
 ```
 
-> 无需发布到 npm 注册表，npx 直接从 GitHub 仓库拉取并运行安装器。若日后发布到 npm，则可以直接 `npx remove-codecv-watermark`。
-
-安装器会自动检测本机已安装的 AI 编程工具，把 skill 复制到对应的技能目录；一台机器上装了几个工具就装几份：
-
-| 工具 | 安装位置 |
-|---|---|
-| WorkBuddy | `~/.workbuddy/skills/` |
-| Claude Code | `~/.claude/skills/` |
-| CodeBuddy Code | `~/.codebuddy/skills/` |
-| Cursor | `~/.cursor/skills/` |
-| OpenCode | `~/.config/opencode/skills/` |
-| Codex CLI | `~/.codex/skills/` |
-| Gemini CLI | `~/.gemini/skills/` |
-| Windsurf | `~/.codeium/windsurf/skills/` |
-| Trae | `~/.trae/skills/` |
-| GitHub Copilot | `~/.copilot/skills/` |
-| Augment | `~/.augment/skills/` |
-| Antigravity | `~/.gemini/antigravity/skills/` |
-| Cline | `~/.cline/skills/` |
-| Roo Code | `~/.roo/skills/` |
-| Kilo Code | `~/.kilocode/skills/` |
-| Continue | `~/.continue/skills/` |
-| Qoder | `~/.qoder/skills/` |
-| Qwen Code | `~/.qwen/skills/` |
-| Universal（.agents 通用规范） | `~/.agents/skills/` |
-
-共 19 个工具目录。所有工具均采用 SKILL.md 通用格式（agentskills.io 规范），同一份 skill 无需修改即可被以上工具发现。
-
-常用参数：
+无 Node.js 环境时：
 
 ```bash
-# 安装到所有支持的工具（而不只是已检测到的）
-npx github:liangkingjin/codecv-watermark-skill --all
-
-# 安装到自定义目录
-npx github:liangkingjin/codecv-watermark-skill --dir /path/to/skills
-
-# 覆盖已有安装（升级时用）
-npx github:liangkingjin/codecv-watermark-skill --force
-```
-
-### 备选：脚本安装（无 Node.js 环境时）
-
-macOS / Linux：
-
-```bash
+# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.sh | bash
-```
 
-Windows（PowerShell）：
-
-```powershell
+# Windows（PowerShell）
 irm https://raw.githubusercontent.com/liangkingjin/codecv-watermark-skill/main/install.ps1 | iex
 ```
+
+npx 安装器支持 `--all`（装到全部支持的工具）、`--dir <路径>`（自定义目录）、`--force`（覆盖升级）。
 
 ## 使用方法
 
@@ -159,7 +126,7 @@ codecv-watermark-skill/
 ## 手动安装（离线）
 
 1. 下载 `dist/remove-codecv-watermark.zip`
-2. 解压，将 `remove-codecv-watermark` 目录复制到对应工具的技能目录（见上表）
+2. 解压，将 `remove-codecv-watermark` 目录复制到你所用工具的技能目录（如 `~/.claude/skills/`、`~/.workbuddy/skills/`）
 3. 安装依赖：`pip install -r remove-codecv-watermark/scripts/requirements.txt`
 
 ## 注意事项
